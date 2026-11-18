@@ -1,0 +1,31 @@
+const API_URL = `${import.meta.env.VITE_API_URL}/usuarios`;
+
+export async function getUsers() {
+  const response = await fetch(API_URL);
+  return response.json();
+}
+
+export async function createUser(user) {
+  const response = await fetch(API_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(user)
+  });
+
+  return response.json();
+}
+
+export async function loginUser(email, password) {
+  const response = await fetch(`${API_URL}/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ email, password })
+  });
+
+  if (!response.ok) return null;
+  return response.json();
+}
